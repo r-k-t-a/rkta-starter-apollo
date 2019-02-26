@@ -1,0 +1,9 @@
+type Query {
+  errors: [Error]!
+}
+
+type Error {
+  message: String!
+  name: String!
+  statusCode: Number
+}
