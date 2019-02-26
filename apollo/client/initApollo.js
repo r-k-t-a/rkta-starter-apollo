@@ -23,7 +23,7 @@ const httpLink = new HttpLink({
 const authLink = setContext((_, { headers }) => ({
   headers: {
     ...headers,
-    'X-CSRF-Token': localStorage.getItem('token') || '',
+    Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
   },
 }));
 
