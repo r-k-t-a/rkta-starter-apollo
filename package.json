@@ -1,7 +1,7 @@
 {
-  "name": "gerlent-webapp",
-  "version": "1.0.0",
-  "description": "Gerlent Web App",
+  "name": "rkta-starter-apollo",
+  "version": "0.0.1",
+  "description": "A boilerplate for internal use",
   "engines": {
     "node": "11.6.0",
     "npm": "6.5.0-next.0"
