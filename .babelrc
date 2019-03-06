@@ -2,7 +2,5 @@
   "presets": ["next/babel"],
   "plugins": [
     "@babel/plugin-proposal-export-default-from",
-    ["emotion", { "inline": true }],
-    "styled-components",
   ]
 }
