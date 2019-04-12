@@ -1,6 +1,9 @@
 {
-  "version": 2,
+  "alias": "starter",
   "builds": [
     { "src": "package.json", "use": "@now/next" }
-  ]
+  ],
+  "name": "starter",
+  "scope": "rkta",
+  "version": 2
 }
