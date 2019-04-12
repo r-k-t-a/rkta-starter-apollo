@@ -1,9 +1,5 @@
 {
   "alias": "rkta-starter-apollo",
-  "env": {
-    "TARGET": "server",
-    "GRAPHQL_ENDPOINT_URL": "http://localhost:3000/graphql"
-  },
   "build": {
     "env": {
       "TARGET": "serverless",
@@ -13,7 +9,22 @@
   "builds": [
     { "src": "package.json", "use": "@now/next" }
   ],
+  "env": {
+    "TARGET": "server",
+    "GRAPHQL_ENDPOINT_URL": "http://localhost:3000/graphql"
+  },
   "name": "Apollo Starter",
+  "routes": [
+    {
+      "src": "(.*)",
+      "headers": {
+        "X-DNS-Prefetch-Control": "off",
+        "X-Download-Options": "noopen",
+        "X-XSS-Protection": "1; mode=block",
+        "X-Content-Type-Options": "nosniff"
+      }
+    }
+  ],
   "scope": "rkta",
   "version": 2
 }
