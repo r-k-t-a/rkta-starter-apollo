@@ -10,6 +10,7 @@ const IndexPage = () => (
     <Link href={localStatePath()}>
       <a>Local State Example</a>
     </Link>
+    <p>{process.env.GRAPHQL_ENDPOINT_URL || 'GRAPHQL_ENDPOINT_URL not defined'}</p>
   </section>
 );
 

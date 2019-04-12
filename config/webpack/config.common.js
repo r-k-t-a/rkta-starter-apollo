@@ -1,5 +1,7 @@
-const path = require('path');
-const Dotenv = require('dotenv-webpack');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const { EnvironmentPlugin } = require('webpack');
+
+const { GRAPHQL_ENDPOINT_URL } = process.env;
 
 module.exports = {
   module: {
@@ -11,10 +13,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new Dotenv({
-      path: path.join(__dirname, '../../.env'),
-      systemvars: false,
-    }),
-  ],
+  plugins: [new EnvironmentPlugin({ GRAPHQL_ENDPOINT_URL })],
 };

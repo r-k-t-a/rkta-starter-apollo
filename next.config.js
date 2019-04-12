@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('now-env');
 
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 const merge = require('webpack-merge');
@@ -17,5 +17,6 @@ module.exports = withBundleAnalyzer({
       reportFilename: '../bundles/client.html',
     },
   },
+  target: process.env.TARGET,
   webpack: config => merge(common, config),
 });
