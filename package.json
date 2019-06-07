@@ -11,6 +11,7 @@
     "deploy": "now --target production",
     "predeploy": "npm run check:all",
     "dev": "next -p 8000",
+    "now:dev": "now dev -p 8000",
     "build": "next build",
     "prebuild": "npm run check:all",
     "lint": "eslint 'apollo' 'config' 'pages' 'src' --ext .js,.jsx",
@@ -43,8 +44,7 @@
     "jest": "^24.1.0",
     "jest-emotion": "^10.0.10",
     "jest-transform-graphql": "^2.1.0",
-    "now": "^15.0.4",
-    "now-env": "^3.1.0",
+    "now": "latest",
     "prettier": "^1.16.3",
     "webpack-merge": "^4.2.1"
   },

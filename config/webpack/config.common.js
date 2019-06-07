@@ -1,8 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-const { EnvironmentPlugin } = require('webpack');
-
-const { GRAPHQL_ENDPOINT_URL } = process.env;
-
 module.exports = {
   module: {
     rules: [
@@ -13,5 +8,4 @@ module.exports = {
       },
     ],
   },
-  plugins: [new EnvironmentPlugin({ GRAPHQL_ENDPOINT_URL })],
 };

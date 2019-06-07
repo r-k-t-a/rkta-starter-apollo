@@ -2,17 +2,11 @@
   "alias": "rkta-starter-apollo",
   "build": {
     "env": {
-      "TARGET": "serverless",
-      "GRAPHQL_ENDPOINT_URL": "http://broadhost/graphql"
+      "DEPLOYMENT_ID": "now",
+      "TARGET": "serverless"
     }
   },
-  "builds": [
-    { "src": "package.json", "use": "@now/next" }
-  ],
-  "env": {
-    "TARGET": "server",
-    "GRAPHQL_ENDPOINT_URL": "http://localhost:3000/graphql"
-  },
+  "builds": [{ "src": "package.json", "use": "@now/next" }],
   "name": "Apollo Starter",
   "routes": [
     {
