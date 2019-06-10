@@ -1,4 +1,6 @@
-/.next/
+.env
+.env.build
+/.next
 /.tool-versions
 
 /bundles

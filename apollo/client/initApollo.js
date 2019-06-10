@@ -5,18 +5,15 @@ import { HttpLink } from 'apollo-link-http';
 import fetch from 'isomorphic-unfetch';
 import { setContext } from 'apollo-link-context';
 import { withClientState } from 'apollo-link-state';
-import getConfig from 'next/config';
 
 import clientState from '../schema';
 import makeErrorLink from './makeErrorLink';
 
 let apolloClient = null;
 
-const { GRAPHQL_ENDPOINT_URL } = getConfig().publicRuntimeConfig;
-
 const httpLink = new HttpLink({
   credentials: 'same-origin',
-  uri: GRAPHQL_ENDPOINT_URL,
+  uri: process.env.GRAPHQL_ENDPOINT_URL,
   useGETForQueries: false,
   fetch,
 });

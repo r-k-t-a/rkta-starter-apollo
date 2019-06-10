@@ -3,6 +3,7 @@
 A React-apollo app preconfigured for serverless Zeit Now deployment.
 
 ## To use locally
+- Create `.env` and `.env.build` from `.env.sample` and `.env.build.sample`
 - Start dev server: `yarn dev`
 - Start in production mode `yarn start`
 
