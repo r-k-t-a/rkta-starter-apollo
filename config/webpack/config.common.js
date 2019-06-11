@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const { EnvironmentPlugin } = require('webpack');
 const pick = require('lodash/pick');
 
-const envFilename = process.env.IS_NOW === 'true' ? '.env.now' : '.env';
+const envFilename = process.env.TARGET === 'serverless' ? '.env.serverless' : '.env';
 const result = dotenv.config({ path: path.join(__dirname, '../../', envFilename) });
 
 if (result.error) {

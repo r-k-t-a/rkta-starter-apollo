@@ -1,5 +1,5 @@
 .env
-.env.now
+.env.serverless
 /.next
 /.tool-versions
 

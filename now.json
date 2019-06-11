@@ -2,7 +2,7 @@
   "alias": "rkta-starter-apollo",
   "build": {
     "env": {
-      "IS_NOW": "true"
+      "TARGET": "serverless"
     }
   },
   "builds": [{ "src": "package.json", "use": "@now/next" }],
