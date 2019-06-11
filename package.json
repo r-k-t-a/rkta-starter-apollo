@@ -13,6 +13,7 @@
     "dev": "next -p 8000",
     "now:dev": "now dev -p 8000",
     "build": "next build",
+    "now-build": "npm run build",
     "prebuild": "npm run check:all",
     "lint": "eslint 'apollo' 'config' 'pages' 'src' --ext .js,.jsx",
     "prestart": "npm run build",
