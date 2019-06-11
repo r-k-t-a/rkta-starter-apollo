@@ -1,5 +1,10 @@
 {
   "alias": "rkta-starter-apollo",
+  "build": {
+    "env": {
+      "TARGET": "serverless"
+    }
+  },
   "builds": [{ "src": "package.json", "use": "@now/next" }],
   "name": "Apollo Starter",
   "routes": [
