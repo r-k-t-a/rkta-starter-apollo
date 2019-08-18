@@ -5,11 +5,12 @@ import { HttpLink } from 'apollo-link-http';
 import fetch from 'isomorphic-unfetch';
 import { setContext } from 'apollo-link-context';
 import { withClientState } from 'apollo-link-state';
+import isNode from 'detect-node';
 
 import clientState from '../schema';
 import makeErrorLink from './makeErrorLink';
 
-let apolloClient = null;
+let apolloClient: object = null;
 
 const httpLink = new HttpLink({
   credentials: 'same-origin',
@@ -25,22 +26,22 @@ const authLink = setContext((_, { headers }) => ({
   },
 }));
 
-const create = (initialState = {}) => {
+const create = (initialState = {}): ApolloClient<{}> => {
   const cache = new InMemoryCache().restore(initialState);
   const stateLink = withClientState({ ...clientState, cache });
   const links = [stateLink, makeErrorLink(cache), httpLink];
-  if (process.browser) links.unshift(authLink);
+  if (!isNode) links.unshift(authLink);
 
   return new ApolloClient({
-    connectToDevTools: process.browser,
-    ssrMode: !process.browser,
+    connectToDevTools: !isNode,
+    ssrMode: isNode,
     link: ApolloLink.from(links),
     cache,
   });
 };
 
-export default function initApollo(initialState) {
-  if (!process.browser) return create(initialState);
+export default function initApollo(initialState: {}): ApolloClient<{}> {
+  if (isNode) return create(initialState);
   if (!apolloClient) apolloClient = create(initialState);
   return apolloClient;
 }

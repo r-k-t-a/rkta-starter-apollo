@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Query, Mutation } from 'react-apollo';
 import Link from 'next/link';
 
@@ -15,10 +15,10 @@ const variables = {
   message: 'Ups, it happend',
 };
 
-const Error = () => (
+const Error = (): React.ReactNode => (
   <Query query={SELECT_ERRORS} ssr={false}>
-    {({ data: { errors = [] } }) => (
-      <Fragment>
+    {({ data: { errors = [] } }): React.ReactNode => (
+      <>
         &larr;&nbsp;
         <Link href={homePath()}>
           <a>Home</a>
@@ -28,22 +28,40 @@ const Error = () => (
             <h6>{name}</h6>
             <div>{message}</div>
             <Mutation mutation={RESET_ERROR}>
-              {resetError => (
-                <Button onClick={() => resetError({ variables: { id } })}>&times;</Button>
+              {(resetError): React.ReactNode => (
+                <Button onClick={(): React.ReactNode => resetError({ variables: { id } })}>
+                  &times;
+                </Button>
               )}
             </Mutation>
           </div>
         ))}
         <hr />
         <Mutation mutation={PUSH_ERROR}>
-          {pushError => <Button onClick={() => pushError({ variables })}>Add Error</Button>}
+          {(pushError): React.ReactNode => (
+            <Button
+              onClick={(): void => {
+                pushError({ variables });
+              }}
+            >
+              Add Error
+            </Button>
+          )}
         </Mutation>
         {errors.length > 0 && (
           <Mutation mutation={PURGE_ERRORS}>
-            {purgeErrors => <Button onClick={() => purgeErrors()}>Purge Errors</Button>}
+            {(purgeErrors): React.ReactNode => (
+              <Button
+                onClick={(): void => {
+                  purgeErrors();
+                }}
+              >
+                Purge Errors
+              </Button>
+            )}
           </Mutation>
         )}
-      </Fragment>
+      </>
     )}
   </Query>
 );

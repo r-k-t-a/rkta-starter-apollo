@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import localStatePath from '../src/path/localStatePath';
 
-const IndexPage = () => (
+const IndexPage = (): React.ReactNode => (
   <section>
     Hello I&apos;m index View
     <br />
