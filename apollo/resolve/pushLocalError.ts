@@ -1,6 +1,6 @@
 import query from '../query/localErrors.graphql';
 
-export default (_, { message, name, statusCode = null }, { cache }) => {
+export default (_, { message, name, statusCode = null }, { cache }): {} => {
   const { errors } = cache.readQuery({ query });
   const data = {
     errors: errors.concat({

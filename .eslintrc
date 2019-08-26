@@ -6,19 +6,41 @@
     jest: true
     node: true
   extends:
-    - eslint:recommended
     - airbnb
-    - prettier
-  parser: babel-eslint
+    - plugin:@typescript-eslint/recommended
+    - plugin:import/typescript
+    - plugin:prettier/recommended
+    - prettier/@typescript-eslint
+  parser: '@typescript-eslint/parser'
+  parserOptions:
+    ecmaVersion: 6
+    project: ./tsconfig.json
+    sourceType: module
   plugins:
-    - babel
-    - import
+    - '@typescript-eslint'
+    - prettier
     - jest
     - react
-    - prettier
+    - emotion
   rules:
+    emotion/jsx-import: off
+    emotion/no-vanilla: error
+    emotion/import-from-emotion: error
+    emotion/styled-import: error
+    import/prefer-default-export: off
+    react/destructuring-assignment: off
+    quotes:
+      - error
+      - single
     prettier/prettier: error
+    react/jsx-filename-extension:
+      - 1
+      - extensions:
+        - .jsx
+        - .tsx
+    react/jsx-props-no-spreading: off
     jsx-a11y/anchor-is-valid:
+      - 2
       - error:
         aspects:
          - invalidHref
@@ -27,4 +49,4 @@
           - Link
         specialLink:
           - hrefLeft
-          - hrefRight      
+          - hrefRight

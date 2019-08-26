@@ -6,8 +6,8 @@ import { ApolloProvider } from 'react-apollo';
 import withApolloClient from '../apollo/client';
 import DefaultLayout from '../src/layouts/DefaultLayout';
 
-class NextApp extends App {
-  render() {
+class NextApp extends App<{}> {
+  render(): React.ReactNode {
     const { Component, pageProps, apolloClient } = this.props;
     return (
       <Container>
