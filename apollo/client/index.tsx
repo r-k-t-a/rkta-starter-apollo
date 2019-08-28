@@ -1,23 +1,27 @@
 /* eslint-disable react/static-property-placement */
 import React, { ReactNode } from 'react';
-import ApolloClient from 'apollo-client';
-import { NextPage } from 'next';
 import Head from 'next/head';
+import ApolloClient from 'apollo-client';
+import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { getDataFromTree } from 'react-apollo';
 import get from 'lodash/get';
 import isNode from 'detect-node';
+import { AppProps, AppComponentType, DefaultAppIProps, NextAppContext } from 'next/app';
 
 import initApollo from './initApollo';
 
-interface Props {
-  apolloState: ApolloClient<{}>;
+export interface ApolloProps {
+  apolloState?: NormalizedCacheObject;
+  apolloClient: ApolloClient<NormalizedCacheObject>;
 }
 
-export default (App: NextPage): NextPage =>
-  class Apollo extends React.Component<Props, {}> {
+export default (App: AppComponentType<ApolloProps & DefaultAppIProps>): AppComponentType =>
+  class Apollo extends React.Component<ApolloProps & DefaultAppIProps & AppProps> {
+    public apolloClient: ApolloClient<NormalizedCacheObject> = initApollo(this.props.apolloState);
+
     static displayName = 'withApollo(App)';
 
-    static async getInitialProps(req): Promise<{}> {
+    static async getInitialProps(req: NextAppContext): Promise<{}> {
       const { Component, router } = req;
 
       let appProps = {};
@@ -31,7 +35,13 @@ export default (App: NextPage): NextPage =>
       if (isNode) {
         try {
           await getDataFromTree(
-            <App {...appProps} Component={Component} router={router} apolloClient={apollo} />,
+            <App
+              {...appProps}
+              apolloClient={apollo}
+              Component={Component}
+              pageProps={{}}
+              router={router}
+            />,
           );
         } catch (error) {
           // TODO: log me
@@ -40,13 +50,10 @@ export default (App: NextPage): NextPage =>
         Head.rewind();
       }
 
-      // Extract query data from the Apollo store
       const apolloState = apollo.cache.extract();
 
       return { ...appProps, apolloState };
     }
-
-    apolloClient = initApollo(this.props.apolloState);
 
     render(): ReactNode {
       return <App {...this.props} apolloClient={this.apolloClient} />;

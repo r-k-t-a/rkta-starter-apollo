@@ -1,14 +1,15 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import { AppProps, Container, DefaultAppIProps } from 'next/app';
 import Head from 'next/head';
-import { css, Global } from '@emotion/core';
+import { Global } from '@emotion/core';
 import { ApolloProvider } from 'react-apollo';
 import { Provider as UiProvider } from '@rkta/ui';
 
-import withApolloClient from '../apollo/client';
+import withApolloClient, { ApolloProps } from '../apollo/client';
 import DefaultLayout from '../src/layouts/DefaultLayout';
 
-class NextApp extends App<{}> {
+// eslint-disable-next-line react/prefer-stateless-function
+class NextApp extends React.Component<ApolloProps & DefaultAppIProps & AppProps> {
   render(): React.ReactNode {
     const { Component, pageProps, apolloClient } = this.props;
     return (
@@ -19,21 +20,15 @@ class NextApp extends App<{}> {
               <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <Global
-              styles={({ color, Text }) => [
-                css`
-                  body {
-                    background-color: ${color.paper};
-                    margin: 0;
-                    overscroll-behavior: none;
-                  }
-                `,
-                {
-                  body: {
-                    ...Text.body,
-                    ...Text.sans,
-                  },
+              styles={({ color, Text }): {} => ({
+                body: {
+                  ...Text.body,
+                  ...Text.sans,
+                  backgroundColor: color.paper,
+                  margin: 0,
+                  overscrollBehavior: 'none',
                 },
-              ]}
+              })}
             />
             <DefaultLayout>
               <Component {...pageProps} />

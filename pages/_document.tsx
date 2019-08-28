@@ -1,19 +1,22 @@
 /* eslint-disable react/no-danger */
-import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import React, { ReactElement } from 'react';
+import Document, { Html, Head, Main, NextScript, NextDocumentContext } from 'next/document';
 import createEmotionServer from 'create-emotion-server';
 import { CacheProvider } from '@emotion/core';
 import createCache from '@emotion/cache';
-import get from 'lodash/get';
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+interface Props {
+  css: string;
+}
+
+class RktaDocument extends Document<Props> {
+  static async getInitialProps(ctx: NextDocumentContext): Promise<{}> {
     const emotionCache = createCache();
     const { extractCritical } = createEmotionServer(emotionCache);
 
     await Document.getInitialProps(ctx);
     const page = ctx.renderPage({
-      enhanceApp: App => ({ pageProps, ...rest }) => {
+      enhanceApp: App => ({ pageProps, ...rest }): ReactElement => {
         return (
           <CacheProvider value={emotionCache}>
             <App {...rest} pageProps={pageProps} />
@@ -26,13 +29,14 @@ class MyDocument extends Document {
     return { ...page, ...styles };
   }
 
-  render() {
+  render(): ReactElement {
+    const { css } = this.props;
     return (
-      <Html lang={this.props.lang}>
+      <Html lang="en">
         <Head prefix="og: http://ogp.me/ns#">
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="theme-color" content="#88c940" />
-          <style dangerouslySetInnerHTML={{ __html: this.props.css }} />
+          <style dangerouslySetInnerHTML={{ __html: css }} />
         </Head>
         <body>
           <Main />
@@ -43,4 +47,4 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument;
+export default RktaDocument;

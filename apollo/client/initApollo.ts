@@ -1,5 +1,5 @@
 import ApolloClient from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import fetch from 'isomorphic-unfetch';
@@ -10,7 +10,9 @@ import isNode from 'detect-node';
 import clientState from '../schema';
 import makeErrorLink from './makeErrorLink';
 
-let apolloClient: object = null;
+type ClientType = ApolloClient<NormalizedCacheObject>;
+
+let apolloClient: ClientType = null;
 
 const httpLink = new HttpLink({
   credentials: 'same-origin',
@@ -26,7 +28,7 @@ const authLink = setContext((_, { headers }) => ({
   },
 }));
 
-const create = (initialState = {}): ApolloClient<{}> => {
+const create = (initialState = {}): ClientType => {
   const cache = new InMemoryCache().restore(initialState);
   const stateLink = withClientState({ ...clientState, cache });
   const links = [stateLink, makeErrorLink(cache), httpLink];
@@ -40,7 +42,7 @@ const create = (initialState = {}): ApolloClient<{}> => {
   });
 };
 
-export default function initApollo(initialState: {}): ApolloClient<{}> {
+export default function initApollo(initialState: NormalizedCacheObject): ClientType {
   if (isNode) return create(initialState);
   if (!apolloClient) apolloClient = create(initialState);
   return apolloClient;

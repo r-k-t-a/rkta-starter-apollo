@@ -1,7 +1,7 @@
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import React, { ReactElement } from 'react';
+import PropTypes from 'prop-types';
 
-const Button = ({ children, ...rest }): React.ReactNode => (
+const Button = ({ children, ...rest }): ReactElement => (
   <button type="button" {...rest}>
     {children}
   </button>

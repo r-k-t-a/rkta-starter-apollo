@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "noLib": false,
-    "removeComments": true,
-    "allowSyntheticDefaultImports": true,
-    "module": "esnext",
-    "target": "esnext",
     "jsx": "preserve",
-    "sourceMap": false,
-    "moduleResolution": "node"
+    "noLib": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "target": "esnext",
+    "sourceMap": false
   },
-  "exclude": ["out", ".next"],
-  "types": ["typePatches"]
+  "exclude": ["node_modules", ".next", "**/*.spec.ts"]
 }
