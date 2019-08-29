@@ -1,7 +1,12 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ButtonHTMLAttributes, ReactNode, SFC } from 'react';
 import PropTypes from 'prop-types';
 
-const Button = ({ children, ...rest }): ReactElement => (
+interface Props {
+  children: ReactNode;
+  onClick?: Function;
+}
+
+const Button: SFC<Props> = ({ children, ...rest }: ButtonHTMLAttributes<Props>): ReactElement => (
   <button type="button" {...rest}>
     {children}
   </button>

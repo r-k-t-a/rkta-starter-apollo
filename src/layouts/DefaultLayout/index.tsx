@@ -1,7 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 
-const DefaultLayout = ({ children }): ReactElement => <main>{children}</main>;
+interface Props {
+  children: ReactNode;
+}
+
+const DefaultLayout = ({ children }: Props): ReactElement => <main>{children}</main>;
 
 DefaultLayout.propTypes = {
   children: PropTypes.node.isRequired,

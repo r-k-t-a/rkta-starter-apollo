@@ -1,16 +1,16 @@
 import React from 'react';
-import { AppProps, Container, DefaultAppIProps } from 'next/app';
+import App, { Container } from 'next/app';
 import Head from 'next/head';
 import { Global } from '@emotion/core';
 import { ApolloProvider } from 'react-apollo';
 import { Provider as UiProvider } from '@rkta/ui';
 
-import withApolloClient, { ApolloProps } from '../apollo/client';
+import withApollo, { InjectedApolloProps } from '../apollo/client/withApollo';
 import DefaultLayout from '../src/layouts/DefaultLayout';
 
 // eslint-disable-next-line react/prefer-stateless-function
-class NextApp extends React.Component<ApolloProps & DefaultAppIProps & AppProps> {
-  render(): React.ReactNode {
+class NextApp extends App<InjectedApolloProps> {
+  render(): JSX.Element {
     const { Component, pageProps, apolloClient } = this.props;
     return (
       <Container>
@@ -40,4 +40,4 @@ class NextApp extends React.Component<ApolloProps & DefaultAppIProps & AppProps>
   }
 }
 
-export default withApolloClient(NextApp);
+export default withApollo(NextApp);

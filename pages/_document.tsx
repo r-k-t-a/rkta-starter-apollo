@@ -1,6 +1,13 @@
 /* eslint-disable react/no-danger */
 import React, { ReactElement } from 'react';
-import Document, { Html, Head, Main, NextScript, NextDocumentContext } from 'next/document';
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentInitialProps,
+} from 'next/document';
 import createEmotionServer from 'create-emotion-server';
 import { CacheProvider } from '@emotion/core';
 import createCache from '@emotion/cache';
@@ -10,12 +17,12 @@ interface Props {
 }
 
 class RktaDocument extends Document<Props> {
-  static async getInitialProps(ctx: NextDocumentContext): Promise<{}> {
+  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
     const emotionCache = createCache();
     const { extractCritical } = createEmotionServer(emotionCache);
 
     await Document.getInitialProps(ctx);
-    const page = ctx.renderPage({
+    const page = await ctx.renderPage({
       enhanceApp: App => ({ pageProps, ...rest }): ReactElement => {
         return (
           <CacheProvider value={emotionCache}>

@@ -28,7 +28,7 @@ const Error = (): React.ReactNode => (
             <h6>{name}</h6>
             <div>{message}</div>
             <Mutation mutation={RESET_ERROR}>
-              {(resetError): ReactElement => (
+              {(resetError: Function): ReactElement => (
                 <Button onClick={(): ReactElement => resetError({ variables: { id } })}>
                   &times;
                 </Button>
@@ -38,7 +38,7 @@ const Error = (): React.ReactNode => (
         ))}
         <hr />
         <Mutation mutation={PUSH_ERROR}>
-          {(pushError): ReactElement => (
+          {(pushError: Function): ReactElement => (
             <Button
               onClick={(): void => {
                 pushError({ variables });
@@ -50,7 +50,7 @@ const Error = (): React.ReactNode => (
         </Mutation>
         {errors.length > 0 && (
           <Mutation mutation={PURGE_ERRORS}>
-            {(purgeErrors): ReactElement => (
+            {(purgeErrors: Function): ReactElement => (
               <Button
                 onClick={(): void => {
                   purgeErrors();

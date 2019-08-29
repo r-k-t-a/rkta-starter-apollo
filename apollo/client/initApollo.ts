@@ -12,7 +12,7 @@ import makeErrorLink from './makeErrorLink';
 
 type ClientType = ApolloClient<NormalizedCacheObject>;
 
-let apolloClient: ClientType = null;
+let apolloClient: ClientType;
 
 const httpLink = new HttpLink({
   credentials: 'same-origin',
@@ -29,7 +29,7 @@ const authLink = setContext((_, { headers }) => ({
 }));
 
 const create = (initialState = {}): ClientType => {
-  const cache = new InMemoryCache().restore(initialState);
+  const cache: InMemoryCache = new InMemoryCache().restore(initialState);
   const stateLink = withClientState({ ...clientState, cache });
   const links = [stateLink, makeErrorLink(cache), httpLink];
   if (!isNode) links.unshift(authLink);
