@@ -35,11 +35,9 @@ const withApollo = <P extends InjectedApolloProps>(
       const { Component, router, ctx } = req;
 
       let appProps = {};
-      const getComponentProps = WrappedApp.getInitialProps;
-      if (getComponentProps) appProps = await getComponentProps(req);
+      const { getInitialProps } = WrappedApp;
+      if (getInitialProps) appProps = await getInitialProps(req);
 
-      // Run all GraphQL queries in the component tree
-      // and extract the resulting data
       const apollo = initApollo({});
       if (isNode) {
         try {
