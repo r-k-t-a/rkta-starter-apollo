@@ -1,6 +1,4 @@
-/* eslint-disable react/static-property-placement */
 import React from 'react';
-import Head from 'next/head';
 import ApolloClient from 'apollo-client';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { getDataFromTree } from 'react-apollo';
@@ -8,30 +6,37 @@ import get from 'lodash/get';
 import isNode from 'detect-node';
 
 import App, { AppContext, AppInitialProps } from 'next/app';
+import Head from 'next/head';
 
 import initApollo from './initApollo';
 
-export interface InjectedApolloProps {
-  apolloState?: NormalizedCacheObject;
+interface ApolloInitialProps extends AppInitialProps {
+  apolloState: NormalizedCacheObject;
+}
+
+export interface InjectedApolloProps extends AppContext, AppInitialProps {
   apolloClient: ApolloClient<NormalizedCacheObject>;
+  apolloState?: NormalizedCacheObject;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const withApollo = <P extends AppInitialProps>(WrappedApp: React.ComponentType<P>) =>
-  class WithApollo extends App<P & InjectedApolloProps> {
+const withApollo = <P extends InjectedApolloProps>(
+  WrappedApp: React.ComponentType<InjectedApolloProps>,
+) =>
+  class WithApollo extends App<P & ApolloInitialProps> {
+    static get displayName(): string {
+      return 'withApollo(App)';
+    }
+
     public apolloClient: ApolloClient<NormalizedCacheObject> = initApollo(
       this.props.apolloState || {},
     );
 
-    static displayName = 'withApollo(App)';
-
-    static async getInitialProps(req: AppContext): Promise<AppInitialProps> {
+    static async getInitialProps(req: AppContext): Promise<ApolloInitialProps> {
       const { Component, router, ctx } = req;
 
       let appProps = {};
-      if (WrappedApp.getInitialProps) {
-        appProps = await WrappedApp.getInitialProps(req);
-      }
+      if ('getInitialProps' in WrappedApp) appProps = await WrappedApp.getInitialProps(req);
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
@@ -40,10 +45,11 @@ const withApollo = <P extends AppInitialProps>(WrappedApp: React.ComponentType<P
         try {
           await getDataFromTree(
             <WrappedApp
+              pageProps={{}}
+              {...req}
               {...appProps}
               apolloClient={apollo}
               Component={Component}
-              pageProps={{}}
               router={router}
             />,
           );
@@ -53,10 +59,8 @@ const withApollo = <P extends AppInitialProps>(WrappedApp: React.ComponentType<P
         }
         Head.rewind();
       }
-
       const apolloState = apollo.cache.extract();
-
-      return { ...appProps, apolloState };
+      return { ...appProps, apolloState, pageProps: {} };
     }
 
     render(): JSX.Element {
