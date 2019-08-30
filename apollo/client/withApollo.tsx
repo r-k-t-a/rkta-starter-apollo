@@ -19,11 +19,10 @@ export interface InjectedApolloProps extends AppContext, AppInitialProps {
   apolloState?: NormalizedCacheObject;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const withApollo = <P extends InjectedApolloProps>(
-  WrappedApp: React.ComponentType<InjectedApolloProps>,
-) =>
-  class WithApollo extends App<P & ApolloInitialProps> {
+  WrappedApp: React.ComponentType<InjectedApolloProps> & { getInitialProps?: Function },
+): React.ComponentType<P & ApolloInitialProps> =>
+  class WithApolloClass extends App<P & ApolloInitialProps> {
     static get displayName(): string {
       return 'withApollo(App)';
     }
@@ -35,8 +34,9 @@ const withApollo = <P extends InjectedApolloProps>(
     static async getInitialProps(req: AppContext): Promise<ApolloInitialProps> {
       const { Component, router, ctx } = req;
 
-      const appProps = {};
-      // if ('getInitialProps' in WrappedApp) appProps = await WrappedApp.getInitialProps(req);
+      let appProps = {};
+      const getComponentProps = WrappedApp.getInitialProps;
+      if (getComponentProps) appProps = await getComponentProps(req);
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
