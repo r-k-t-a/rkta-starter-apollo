@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-import path from 'path';
+const path = require('path');
 
 const dotenv = require('dotenv');
 const { EnvironmentPlugin } = require('webpack');

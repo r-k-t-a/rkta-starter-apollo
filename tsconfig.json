@@ -25,5 +25,11 @@
     "isolatedModules": true
   },
   "exclude": ["node_modules", ".next", "**/*.spec.ts", "next.config.js"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "next.config.js",
+    "config/webpack/config.common.js"
+  ]
 }

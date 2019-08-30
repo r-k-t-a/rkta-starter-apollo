@@ -3,7 +3,7 @@
 const { flow } = require('lodash');
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 const merge = require('webpack-merge');
-const common = require('./config/webpack/config.common.ts');
+const common = require('./config/webpack/config.common');
 
 const compose = flow(withBundleAnalyzer);
 

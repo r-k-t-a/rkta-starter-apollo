@@ -35,8 +35,8 @@ const withApollo = <P extends InjectedApolloProps>(
     static async getInitialProps(req: AppContext): Promise<ApolloInitialProps> {
       const { Component, router, ctx } = req;
 
-      let appProps = {};
-      if ('getInitialProps' in WrappedApp) appProps = await WrappedApp.getInitialProps(req);
+      const appProps = {};
+      // if ('getInitialProps' in WrappedApp) appProps = await WrappedApp.getInitialProps(req);
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
