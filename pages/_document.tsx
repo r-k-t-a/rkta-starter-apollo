@@ -43,7 +43,11 @@ class RktaDocument extends Document<Props> {
         <Head prefix="og: http://ogp.me/ns#">
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="theme-color" content="#88c940" />
-          <style dangerouslySetInnerHTML={{ __html: css }} />
+          <style
+            dangerouslySetInnerHTML={{ __html: css }}
+            data-emotion="css-global"
+            type="text/css"
+          />
         </Head>
         <body>
           <Main />
