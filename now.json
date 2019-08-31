@@ -5,8 +5,7 @@
       "TARGET": "serverless"
     }
   },
-  "builds": [{ "src": "next.config.js", "use": "@now/node@canary" }],
-  "name": "Apollo Starter",
+  "builds": [{ "src": "package.json", "use": "@now/next" }],
   "routes": [
     {
       "src": "(.*)",
@@ -21,6 +20,7 @@
       }
     }
   ],
+  "name": "Apollo Starter",
   "scope": "rkta",
   "version": 2
 }

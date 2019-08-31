@@ -8,7 +8,7 @@
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
     "check:all": "npm run test && npm run lint && npm run type-check",
-    "deploy": "now --target production",
+    "deploy": "now --prod",
     "predeploy": "npm run check:all",
     "dev": "next -p 8000",
     "now:dev": "now dev -p 8000",
