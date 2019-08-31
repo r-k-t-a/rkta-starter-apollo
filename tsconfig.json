@@ -1,16 +1,35 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
-    "noLib": false,
-    "removeComments": true,
-    "allowSyntheticDefaultImports": true,
-    "module": "esnext",
-    "target": "esnext",
+    "inlineSourceMap": false,
+    "inlineSources": false,
     "jsx": "preserve",
+    "lib": ["dom", "es2017"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noLib": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "skipLibCheck": true,
     "sourceMap": false,
-    "moduleResolution": "node"
+    "strict": true,
+    "target": "esnext",
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
-  "exclude": ["out", ".next"],
-  "types": ["typePatches"]
+  "exclude": ["node_modules", ".next", "**/*.spec.ts", "next.config.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "next.config.js",
+    "config/webpack/config.common.js"
+  ]
 }

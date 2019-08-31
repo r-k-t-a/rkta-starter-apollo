@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const path = require('path');
+
 const dotenv = require('dotenv');
 const { EnvironmentPlugin } = require('webpack');
 const pick = require('lodash/pick');

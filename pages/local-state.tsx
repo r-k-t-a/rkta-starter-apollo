@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import Link from 'next/link';
 
@@ -17,7 +17,7 @@ const variables = {
 
 const Error = (): React.ReactNode => (
   <Query query={SELECT_ERRORS} ssr={false}>
-    {({ data: { errors = [] } }): React.ReactNode => (
+    {({ data: { errors = [] } }): ReactElement => (
       <>
         &larr;&nbsp;
         <Link href={homePath()}>
@@ -28,8 +28,8 @@ const Error = (): React.ReactNode => (
             <h6>{name}</h6>
             <div>{message}</div>
             <Mutation mutation={RESET_ERROR}>
-              {(resetError): React.ReactNode => (
-                <Button onClick={(): React.ReactNode => resetError({ variables: { id } })}>
+              {(resetError: Function): ReactElement => (
+                <Button onClick={(): ReactElement => resetError({ variables: { id } })}>
                   &times;
                 </Button>
               )}
@@ -38,7 +38,7 @@ const Error = (): React.ReactNode => (
         ))}
         <hr />
         <Mutation mutation={PUSH_ERROR}>
-          {(pushError): React.ReactNode => (
+          {(pushError: Function): ReactElement => (
             <Button
               onClick={(): void => {
                 pushError({ variables });
@@ -50,7 +50,7 @@ const Error = (): React.ReactNode => (
         </Mutation>
         {errors.length > 0 && (
           <Mutation mutation={PURGE_ERRORS}>
-            {(purgeErrors): React.ReactNode => (
+            {(purgeErrors: Function): ReactElement => (
               <Button
                 onClick={(): void => {
                   purgeErrors();

@@ -6,7 +6,6 @@
     }
   },
   "builds": [{ "src": "package.json", "use": "@now/next" }],
-  "name": "Apollo Starter",
   "routes": [
     {
       "src": "(.*)",
@@ -21,6 +20,7 @@
       }
     }
   ],
+  "name": "Apollo Starter",
   "scope": "rkta",
   "version": 2
 }

@@ -1,13 +1,17 @@
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import pushLocalError from '../resolve/pushLocalError';
+import pushLocalError, { ErrorMessage } from '../resolve/pushLocalError';
 
-const makeHandler = cache => ({ message, name = 'Query Error' }): void => {
+const makeHandler = (cache: InMemoryCache) => ({
+  message,
+  name = 'Query Error',
+}: ErrorMessage): void => {
   pushLocalError(null, { message, name }, { cache });
 };
 
-export default (cache): ApolloLink =>
+export default (cache: InMemoryCache): ApolloLink =>
   onError(({ graphQLErrors, networkError }) => {
     const handleError = makeHandler(cache);
     if (graphQLErrors) graphQLErrors.map(handleError);

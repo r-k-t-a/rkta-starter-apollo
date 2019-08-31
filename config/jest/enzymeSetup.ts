@@ -4,5 +4,5 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({
   adapter: new Adapter(),
-  snapshotSerializers: ['jest-emotion'],
+  // snapshotSerializers: ['jest-emotion'],
 });
