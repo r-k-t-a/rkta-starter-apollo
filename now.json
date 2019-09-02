@@ -11,7 +11,7 @@
       "src": "(.*)",
       "headers": {
         "Strict-Transport-Security": "max-age=31622400000;",
-        "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; img-src 'self'; script-src 'self'; style-src 'self'",
+        "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'",
         "X-Frame-Options": "DENY",
         "X-DNS-Prefetch-Control": "off",
         "X-Download-Options": "noopen",
