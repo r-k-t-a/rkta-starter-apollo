@@ -1,5 +1,5 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import Head from 'next/head';
 import { Global } from '@emotion/core';
 import { ApolloProvider } from 'react-apollo';
@@ -13,29 +13,27 @@ class NextApp extends App<InjectedApolloProps> {
   render(): JSX.Element {
     const { Component, pageProps, apolloClient } = this.props;
     return (
-      <Container>
-        <UiProvider>
-          <ApolloProvider client={apolloClient}>
-            <Head>
-              <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            </Head>
-            <Global
-              styles={({ color, Text }): {} => ({
-                body: {
-                  ...Text.body,
-                  ...Text.sans,
-                  backgroundColor: color.paper,
-                  margin: 0,
-                  overscrollBehavior: 'none',
-                },
-              })}
-            />
-            <DefaultLayout>
-              <Component {...pageProps} />
-            </DefaultLayout>
-          </ApolloProvider>
-        </UiProvider>
-      </Container>
+      <UiProvider>
+        <ApolloProvider client={apolloClient}>
+          <Head>
+            <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          </Head>
+          <Global
+            styles={({ color, Text }): {} => ({
+              body: {
+                ...Text.body,
+                ...Text.sans,
+                backgroundColor: color.paper,
+                margin: 0,
+                overscrollBehavior: 'none',
+              },
+            })}
+          />
+          <DefaultLayout>
+            <Component {...pageProps} />
+          </DefaultLayout>
+        </ApolloProvider>
+      </UiProvider>
     );
   }
 }
