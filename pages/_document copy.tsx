@@ -15,24 +15,20 @@ import { getStatusCode } from './_error';
 
 interface InitialProps extends DocumentInitialProps {
   css: string;
+  statusCode: number;
 }
 
 class RktaDocument extends Document<InitialProps> {
   static async getInitialProps(ctx: DocumentContext): Promise<InitialProps> {
     const emotionCache = createCache();
     const { extractCritical } = createEmotionServer(emotionCache);
-    const originalRenderPage = ctx.renderPage;
     const statusCode = getStatusCode(ctx);
+    console.log('begin');
+    const { html } = await Document.getInitialProps(ctx);
+    console.log('end');
 
-    ctx.renderPage = () =>
-      originalRenderPage({
-        enhanceApp: App => props => <App {...props} statusCode={statusCode} />,
-      });
-
-    const initialProps = await Document.getInitialProps(ctx);
-
-    const { css } = extractCritical(initialProps.html);
-    return { ...initialProps, css };
+    const styles = extractCritical(html);
+    return { ...styles, statusCode };
   }
 
   render(): ReactElement {

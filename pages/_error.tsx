@@ -1,22 +1,27 @@
 import React from 'react';
-import ErrorPage from '../src/blocks/ErrorBoundary/ErrorPage';
+import { NextPageContext } from 'next';
+import { Error404, UnknownError } from '../src/blocks/Error';
 
-class Error extends React.Component {
-  static getInitialProps({ res, err }) {
-    if (res && res.statusCode === 404) {
-      return {
-        error: {
-          message: 'Not found',
-          statusCode: res.statusCode,
-        },
-      };
-    }
-    return { error: err };
+interface Props {
+  statusCode: number;
+}
+
+export const getStatusCode = ({ err, res }: NextPageContext): number => {
+  const { statusCode = 500 } = { ...err, ...res };
+  return statusCode;
+};
+
+class ErrorPage extends React.Component<Props> {
+  static getInitialProps(ctx: NextPageContext): Props {
+    const statusCode = getStatusCode(ctx);
+    return { statusCode };
   }
 
-  render() {
-    return <ErrorPage {...this.props} />;
+  render(): JSX.Element {
+    const { statusCode } = this.props;
+    console.log('render', statusCode);
+    return statusCode === 404 ? <Error404 /> : <UnknownError statusCode={statusCode} />;
   }
 }
 
-export default Error;
+export default ErrorPage;

@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { ReactElement } from 'react';
-import get from 'lodash/get';
 import styled from '@emotion/styled';
 
 import { Heading } from '@rkta/ui';
@@ -18,12 +17,10 @@ const Box = styled.div`
 `;
 
 interface Props {
-  error: Error;
+  statusCode: number;
 }
 
-const ErrorPage = ({ error }: Props): ReactElement => {
-  const message = get(error, 'message', 'Unknown Error');
-  const statusCode = get(error, 'statusCode', 500);
+const ErrorPage = ({ statusCode }: Props): ReactElement => {
   return (
     <Box>
       <EmojiSad size={48} />
@@ -31,7 +28,7 @@ const ErrorPage = ({ error }: Props): ReactElement => {
         Error {statusCode}
       </Heading>
       <Heading baseline level={2}>
-        {message}
+        Unknown Error
       </Heading>
     </Box>
   );

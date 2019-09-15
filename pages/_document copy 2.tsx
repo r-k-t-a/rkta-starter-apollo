@@ -9,30 +9,31 @@ import Document, {
   DocumentInitialProps,
 } from 'next/document';
 import createEmotionServer from 'create-emotion-server';
+import { CacheProvider } from '@emotion/core';
 import createCache from '@emotion/cache';
 
-import { getStatusCode } from './_error';
-
-interface InitialProps extends DocumentInitialProps {
+interface Props {
   css: string;
 }
 
-class RktaDocument extends Document<InitialProps> {
-  static async getInitialProps(ctx: DocumentContext): Promise<InitialProps> {
+class RktaDocument extends Document<Props> {
+  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
     const emotionCache = createCache();
     const { extractCritical } = createEmotionServer(emotionCache);
-    const originalRenderPage = ctx.renderPage;
-    const statusCode = getStatusCode(ctx);
 
-    ctx.renderPage = () =>
-      originalRenderPage({
-        enhanceApp: App => props => <App {...props} statusCode={statusCode} />,
-      });
+    await Document.getInitialProps(ctx);
+    const page = await ctx.renderPage({
+      enhanceApp: App => ({ pageProps, ...rest }): ReactElement => {
+        return (
+          <CacheProvider value={emotionCache}>
+            <App {...rest} pageProps={pageProps} />
+          </CacheProvider>
+        );
+      },
+    });
 
-    const initialProps = await Document.getInitialProps(ctx);
-
-    const { css } = extractCritical(initialProps.html);
-    return { ...initialProps, css };
+    const styles = extractCritical(page.html);
+    return { ...page, ...styles };
   }
 
   render(): ReactElement {
