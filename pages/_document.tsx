@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import React, { ReactElement } from 'react';
+import React from 'react';
 import Document, {
   Html,
   Head,
@@ -26,7 +26,7 @@ class RktaDocument extends Document<InitialProps> {
 
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: App => props => <App {...props} statusCode={statusCode} />,
+        enhanceApp: App => (props): JSX.Element => <App {...props} statusCode={statusCode} />,
       });
 
     const initialProps = await Document.getInitialProps(ctx);
@@ -35,7 +35,7 @@ class RktaDocument extends Document<InitialProps> {
     return { ...initialProps, css };
   }
 
-  render(): ReactElement {
+  render(): JSX.Element {
     const { css } = this.props;
     return (
       <Html lang="en">
