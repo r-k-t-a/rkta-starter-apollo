@@ -1,5 +1,6 @@
 /* eslint-disable react/no-danger */
 import React, { ReactElement } from 'react';
+import { NextPageContext } from 'next';
 import Document, {
   Html,
   Head,
@@ -8,14 +9,24 @@ import Document, {
   DocumentContext,
   DocumentInitialProps,
 } from 'next/document';
+import {
+  NextComponentType,
+  AppContextType,
+  AppInitialProps,
+  AppPropsType,
+  RenderPageResult,
+} from 'next-server/dist/lib/utils';
 import createEmotionServer from 'create-emotion-server';
 import createCache from '@emotion/cache';
-
-import { getStatusCode } from './_error';
 
 interface InitialProps extends DocumentInitialProps {
   css: string;
 }
+
+const getStatusCode = ({ err, res }: NextPageContext): number => {
+  const { statusCode = 500 } = { ...err, ...res };
+  return statusCode;
+};
 
 class RktaDocument extends Document<InitialProps> {
   static async getInitialProps(ctx: DocumentContext): Promise<InitialProps> {
@@ -24,9 +35,15 @@ class RktaDocument extends Document<InitialProps> {
     const originalRenderPage = ctx.renderPage;
     const statusCode = getStatusCode(ctx);
 
-    ctx.renderPage = () =>
+    ctx.renderPage = (): RenderPageResult | Promise<RenderPageResult> =>
       originalRenderPage({
-        enhanceApp: App => props => <App {...props} statusCode={statusCode} />,
+        enhanceApp: (
+          App: NextComponentType<
+            AppContextType,
+            AppInitialProps,
+            AppPropsType & { statusCode?: number }
+          >,
+        ) => (props: AppPropsType): ReactElement => <App {...props} statusCode={statusCode} />,
       });
 
     const initialProps = await Document.getInitialProps(ctx);
