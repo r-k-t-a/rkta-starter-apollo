@@ -2,7 +2,7 @@ import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
 import { Global } from '@emotion/core';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { Provider as UiProvider } from '@rkta/ui';
 
 import withApollo, { InjectedApolloProps } from '../apollo/client/withApollo';

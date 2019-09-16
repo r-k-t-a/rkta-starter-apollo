@@ -42,7 +42,7 @@ const create = (initialState = {}): ClientType => {
   });
 };
 
-export default function initApollo(initialState: NormalizedCacheObject): ClientType {
+export default function initApollo(initialState: {}): ClientType {
   if (isNode) return create(initialState);
   if (!apolloClient) apolloClient = create(initialState);
   return apolloClient;

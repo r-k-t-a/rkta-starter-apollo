@@ -10,6 +10,9 @@ const IndexPage = (): React.ReactNode => (
     <Link href={localStatePath()}>
       <a>Local State Example</a>
     </Link>
+    <Link href="unknown-page">
+      <a>Error 404</a>
+    </Link>
     <p>{process.env.GRAPHQL_ENDPOINT_URL || 'GRAPHQL_ENDPOINT_URL not defined'}</p>
   </section>
 );
