@@ -68,7 +68,7 @@
   "dependencies": {
     "@emotion/cache": "^10.0.15",
     "@emotion/core": "^10.0.16",
-    "@rkta/entypo": "^0.0.17",
+    "@rkta/entypo": "^0.0.18",
     "@rkta/ui": "^0.0.17",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
