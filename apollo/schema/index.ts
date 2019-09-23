@@ -1,7 +1,7 @@
 import typeDefs from './typeDefs.graphql';
 import purgeLocalErrors from '../resolve/purgeLocalErrors';
 import pushLocalError from '../resolve/pushLocalError';
-import resetLocalError from '../resolve/resetLocalError';
+import popLocalError from '../resolve/popLocalError';
 
 export default {
   defaults: {
@@ -11,7 +11,7 @@ export default {
     Mutation: {
       purgeLocalErrors,
       pushLocalError,
-      resetLocalError,
+      popLocalError,
     },
   },
   typeDefs,

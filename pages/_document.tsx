@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import React, { ReactElement } from 'react';
+import React from 'react';
 import Document, {
   Html,
   Head,
@@ -9,34 +9,22 @@ import Document, {
   DocumentInitialProps,
 } from 'next/document';
 import createEmotionServer from 'create-emotion-server';
-import { CacheProvider } from '@emotion/core';
 import createCache from '@emotion/cache';
 
-interface Props {
+interface InitialProps extends DocumentInitialProps {
   css: string;
 }
 
-class RktaDocument extends Document<Props> {
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+class RktaDocument extends Document<InitialProps> {
+  static async getInitialProps(ctx: DocumentContext): Promise<InitialProps> {
     const emotionCache = createCache();
     const { extractCritical } = createEmotionServer(emotionCache);
-
-    await Document.getInitialProps(ctx);
-    const page = await ctx.renderPage({
-      enhanceApp: App => ({ pageProps, ...rest }): ReactElement => {
-        return (
-          <CacheProvider value={emotionCache}>
-            <App {...rest} pageProps={pageProps} />
-          </CacheProvider>
-        );
-      },
-    });
-
-    const styles = extractCritical(page.html);
-    return { ...page, ...styles };
+    const initialProps = await Document.getInitialProps(ctx);
+    const { css } = extractCritical(initialProps.html);
+    return { ...initialProps, css };
   }
 
-  render(): ReactElement {
+  render(): JSX.Element {
     const { css } = this.props;
     return (
       <Html lang="en">

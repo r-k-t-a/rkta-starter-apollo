@@ -38,6 +38,7 @@
         - .jsx
         - .tsx
     react/jsx-props-no-spreading: off
+    react/state-in-constructor: off
     jsx-a11y/anchor-is-valid:
       - 2
       - error:

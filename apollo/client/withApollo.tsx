@@ -33,12 +33,13 @@ const withApollo = <P extends InjectedApolloProps>(
 
     static async getInitialProps(req: AppContext): Promise<ApolloInitialProps> {
       const { Component, router, ctx } = req;
+      const { statusCode = 500 } = { ...ctx.err, ...ctx.res };
 
       let appProps = {};
       const { getInitialProps } = WrappedApp;
       if (getInitialProps) appProps = await getInitialProps(req);
 
-      const apollo = initApollo({});
+      const apollo = initApollo({ statusCode });
       if (isNode) {
         try {
           await getDataFromTree(

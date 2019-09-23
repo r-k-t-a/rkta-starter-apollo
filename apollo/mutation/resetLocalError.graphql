@@ -1,5 +1,0 @@
-mutation ResetLocalError($id: Number!) {
-  resetLocalError(id: $id) @client {
-    id
-  }
-}
