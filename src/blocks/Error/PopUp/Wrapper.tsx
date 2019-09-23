@@ -7,7 +7,7 @@ import { Errors } from '../../../../apollo/resolve/pushLocalError';
 import Card from './Card';
 
 const ApolloError = (): JSX.Element => {
-  const { data } = useQuery<Errors>(SELECT_ERRORS);
+  const { data } = useQuery<Errors>(SELECT_ERRORS, { ssr: false });
   return <>{data && data.errors.slice(0, 1).map(error => <Card key={error.id} {...error} />)}</>;
 };
 
