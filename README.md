@@ -1,6 +1,6 @@
 # RKTA Starter Apollo
 
-A React-apollo app preconfigured for serverless Zeit Now deployment.
+A React app preconfigured for Apollo GraphQL and serverless Zeit Now deployment.
 
 ## To use locally
 - Create `.env` and `.env.serverless` from `.env.sample` and `.env.serverless.sample`

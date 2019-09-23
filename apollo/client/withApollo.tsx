@@ -1,7 +1,7 @@
 import React from 'react';
 import ApolloClient from 'apollo-client';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { getDataFromTree } from 'react-apollo';
+import { getDataFromTree } from '@apollo/react-ssr';
 import get from 'lodash/get';
 import isNode from 'detect-node';
 
