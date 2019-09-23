@@ -17,7 +17,8 @@ const Box = styled.div`
 `;
 
 interface Props {
-  statusCode: number;
+  message?: string;
+  statusCode?: number;
 }
 
 const ErrorPage = ({ statusCode }: Props): ReactElement => {

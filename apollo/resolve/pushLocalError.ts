@@ -28,14 +28,15 @@ export default (
 ): {} => {
   const errorsResult = cache.readQuery<Errors>({ query });
   const errors = errorsResult ? errorsResult.errors : [];
+  const nextError = {
+    id: Date.now(),
+    message,
+    name,
+    statusCode,
+    __typename: 'ErrorItem',
+  };
   const data = {
-    errors: errors.concat({
-      id: Date.now(),
-      message,
-      name,
-      statusCode,
-      __typename: 'ErrorItem',
-    }),
+    errors: [nextError, ...errors],
   };
   cache.writeData({ data });
   return { message, name, statusCode };
