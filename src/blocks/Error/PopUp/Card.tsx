@@ -4,8 +4,8 @@ import styled from '@emotion/styled';
 import { Addon, Button, List, ListItem, ListTitle, useFx } from '@rkta/ui';
 import Cross from '@rkta/entypo/Cross';
 
-import { Error } from '../../../../apollo/resolve/pushLocalError';
-import POP_ERROR from '../../../../apollo/mutation/popLocalError.graphql';
+import { Error } from 'apollo/resolve/pushLocalError';
+import POP_ERROR from 'apollo/mutation/popLocalError.graphql';
 
 const Box = styled(List)`
   bottom: 16px;

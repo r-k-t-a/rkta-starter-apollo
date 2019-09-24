@@ -1,5 +1,4 @@
 import React, { ReactElement, ButtonHTMLAttributes, ReactNode, SFC } from 'react';
-import PropTypes from 'prop-types';
 
 interface Props {
   children: ReactNode;
@@ -11,9 +10,5 @@ const Button: SFC<Props> = ({ children, ...rest }: ButtonHTMLAttributes<Props>):
     {children}
   </button>
 );
-
-Button.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default Button;

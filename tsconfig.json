@@ -1,13 +1,17 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "baseUrl": ".",
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "inlineSourceMap": false,
     "inlineSources": false,
     "jsx": "preserve",
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -22,9 +26,19 @@
     "target": "esnext",
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
+    "paths": {
+      "*": [
+        "src/*"
+      ]
+    },
     "isolatedModules": true
   },
-  "exclude": ["node_modules", ".next", "**/*.spec.ts", "next.config.js"],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "**/*.spec.ts",
+    "next.config.js"
+  ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
