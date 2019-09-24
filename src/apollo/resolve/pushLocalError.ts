@@ -39,5 +39,5 @@ export default (
     errors: [nextError, ...errors],
   };
   cache.writeData({ data });
-  return { message, name, statusCode };
+  return nextError;
 };
