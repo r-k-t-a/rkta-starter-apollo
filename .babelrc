@@ -1,4 +1,13 @@
 {
   "presets": ["next/babel"],
-  "plugins": ["@babel/plugin-proposal-export-default-from", ["emotion", { "inline": true }]]
+  "plugins": [
+    ["emotion", { "inline": true }],
+    [
+      "module-resolver",
+      {
+        "extensions": [".js", ".ts", ".tsx", ".graphql"],
+        "root": ["./src"]
+      }
+    ]
+  ]
 }

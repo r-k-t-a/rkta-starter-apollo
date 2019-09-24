@@ -3,13 +3,13 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import Link from 'next/link';
 
-import SELECT_ERRORS from '../apollo/query/localErrors.graphql';
-import PUSH_ERROR from '../apollo/mutation/pushLocalError.graphql';
-import PURGE_ERRORS from '../apollo/mutation/purgeLocalErrors.graphql';
+import SELECT_ERRORS from 'apollo/query/localErrors.graphql';
+import PUSH_ERROR from 'apollo/mutation/pushLocalError.graphql';
+import PURGE_ERRORS from 'apollo/mutation/purgeLocalErrors.graphql';
 
-import Button from '../src/blocks/Button';
-import homePath from '../src/path/homePath';
-import { Errors } from '../apollo/resolve/pushLocalError';
+import Button from 'blocks/Button';
+import homePath from 'path/homePath';
+import { Errors } from 'apollo/resolve/pushLocalError';
 
 const variables = {
   name: 'Custom error',

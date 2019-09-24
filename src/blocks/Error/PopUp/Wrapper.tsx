@@ -1,8 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
-import SELECT_ERRORS from '../../../../apollo/query/localErrors.graphql';
-import { Errors } from '../../../../apollo/resolve/pushLocalError';
+import SELECT_ERRORS from 'apollo/query/localErrors.graphql';
+import { Errors } from 'apollo/resolve/pushLocalError';
 
 import Card from './Card';
 

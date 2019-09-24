@@ -5,9 +5,9 @@ import { Global } from '@emotion/core';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { Provider as UiProvider } from '@rkta/ui';
 
-import withApollo, { InjectedApolloProps } from '../apollo/client/withApollo';
-import DefaultLayout from '../src/layouts/DefaultLayout';
-import ErrorBoundary from '../src/blocks/Error/Boundary';
+import DefaultLayout from 'layouts/Default';
+import ErrorBoundary from 'blocks/Error/Boundary';
+import withApollo, { InjectedApolloProps } from 'apollo/client/withApollo';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class NextApp extends App<InjectedApolloProps> {

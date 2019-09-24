@@ -11,6 +11,9 @@
     - plugin:import/typescript
     - plugin:prettier/recommended
     - prettier/@typescript-eslint
+    - plugin:import/errors
+    - plugin:import/warnings
+    - plugin:import/typescript
   parser: '@typescript-eslint/parser'
   parserOptions:
     ecmaVersion: 6
@@ -26,7 +29,6 @@
     emotion/no-vanilla: error
     emotion/import-from-emotion: error
     emotion/styled-import: error
-    import/prefer-default-export: off
     react/destructuring-assignment: off
     quotes:
       - error
@@ -50,3 +52,6 @@
         specialLink:
           - hrefLeft
           - hrefRight
+  settings:
+    import/resolver:
+      babel-module
