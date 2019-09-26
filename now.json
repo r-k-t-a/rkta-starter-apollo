@@ -5,11 +5,17 @@
       "TARGET": "serverless"
     }
   },
-  "builds": [{ "src": "package.json", "use": "@now/next" }],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/next"
+    }
+  ],
   "routes": [
     {
       "src": "(.*)",
       "headers": {
+        "Cache-Control": "s-maxage=900000, max-age=0",
         "Strict-Transport-Security": "max-age=31622400000;",
         "Content-Security-Policy": "default-src 'self'; frame-ancestors 'none'; img-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'",
         "X-Frame-Options": "DENY",
