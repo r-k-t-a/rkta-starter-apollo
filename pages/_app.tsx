@@ -5,7 +5,6 @@ import { Global } from '@emotion/core';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { Provider as UiProvider } from '@rkta/ui';
 
-import DefaultLayout from 'layouts/Default';
 import ErrorBoundary from 'blocks/Error/Boundary';
 import withApollo, { InjectedApolloProps } from 'apollo/client/withApollo';
 
@@ -31,9 +30,7 @@ class NextApp extends App<InjectedApolloProps> {
             })}
           />
           <ErrorBoundary>
-            <DefaultLayout>
-              <Component {...pageProps} />
-            </DefaultLayout>
+            <Component {...pageProps} />
           </ErrorBoundary>
         </ApolloProvider>
       </UiProvider>
