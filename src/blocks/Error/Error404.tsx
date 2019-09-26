@@ -31,7 +31,7 @@ export default (): JSX.Element => {
           And Another Page
         </Button>
       </Link>
-      <Divider invisible size={16} />
+      <Divider invisible verticalSpace={16} />
       <Button round>
         <Facebook />
       </Button>

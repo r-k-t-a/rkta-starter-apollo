@@ -27,7 +27,7 @@ const IndexPage = (): React.ReactNode => (
         R-K-T-A
       </Heading>
       Poyekhali
-      <Divider size={26} />
+      <Divider verticalSpace={26} />
       <Link href={localStatePath()}>
         <Button blockLevel hard>
           Handle run-time errors
