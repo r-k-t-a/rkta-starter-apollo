@@ -21,7 +21,7 @@
     "start": "next start -p 8000",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "type-check": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "updatedeps": "ncu -u && npm update"
   },
   "config": {
