@@ -2,7 +2,7 @@ import React from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import get from 'lodash/get';
 
-import { Error404, UnknownError } from '../src/blocks/Error';
+import { Error404, UnknownError } from '../blocks/Error';
 
 const ErrorPage: React.FunctionComponent = () => {
   const { cache } = useApolloClient();
