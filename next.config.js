@@ -3,9 +3,10 @@
 const { flow } = require('lodash');
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 const merge = require('webpack-merge');
+const withTM = require('next-transpile-modules');
 const common = require('./config/webpack/config.common');
 
-const compose = flow(withBundleAnalyzer);
+const compose = flow(withBundleAnalyzer, withTM);
 
 module.exports = compose({
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
@@ -22,4 +23,5 @@ module.exports = compose({
   },
   target: process.env.TARGET,
   webpack: config => merge(common, config),
+  transpileModules: ['@rkta/*'],
 });

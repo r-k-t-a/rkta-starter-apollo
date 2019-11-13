@@ -8,10 +8,7 @@
     "inlineSourceMap": false,
     "inlineSources": false,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -27,18 +24,11 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "paths": {
-      "*": [
-        "src/*"
-      ]
+      "*": ["src/*"]
     },
     "isolatedModules": true
   },
-  "exclude": [
-    "node_modules",
-    ".next",
-    "**/*.spec.ts",
-    "next.config.js"
-  ],
+  "exclude": ["node_modules", ".next", "**/*.spec.ts", "next.config.js"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
