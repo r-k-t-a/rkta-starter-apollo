@@ -2,7 +2,7 @@ import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import styled from '@emotion/styled';
 import { Addon, Button, List, ListItem, ListTitle, useFx } from '@rkta/ui';
-import Cross from '@rkta/entypo/Cross';
+import { Cross } from '@rkta/entypo';
 
 import { Error } from 'apollo/resolve/pushLocalError';
 import POP_ERROR from 'apollo/mutation/popLocalError.graphql';

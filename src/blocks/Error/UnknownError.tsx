@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import styled from '@emotion/styled';
 
 import { Heading } from '@rkta/ui';
-import EmojiSad from '@rkta/entypo/EmojiSad';
+import { EmojiSad } from '@rkta/entypo';
 
 const Box = styled.div`
   align-items: center;

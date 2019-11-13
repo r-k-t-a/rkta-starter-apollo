@@ -2,10 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Button, Heading, Divider, Text } from '@rkta/ui';
 
-import Facebook from '@rkta/entypo/Facebook';
-import Vk from '@rkta/entypo/Vk';
-import Twitter from '@rkta/entypo/Twitter';
-import Youtube from '@rkta/entypo/Youtube';
+import { Facebook, Twitter, Youtube, Vk } from '@rkta/entypo';
 
 import homePath from '../../path/homePath';
 

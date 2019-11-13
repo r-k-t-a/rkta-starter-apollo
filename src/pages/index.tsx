@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled';
-import Rocket from '@rkta/entypo/Rocket';
+import { Rocket } from '@rkta/entypo';
 import { Heading, Button, Divider } from '@rkta/ui';
 import { useQuery } from '@apollo/react-hooks';
 
