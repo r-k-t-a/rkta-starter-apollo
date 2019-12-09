@@ -28,6 +28,7 @@
     emotion/no-vanilla: error
     emotion/import-from-emotion: error
     emotion/styled-import: error
+    import/extensions: off
     react/destructuring-assignment: off
     quotes:
       - error
