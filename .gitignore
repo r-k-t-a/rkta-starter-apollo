@@ -2,13 +2,13 @@
 .env.serverless
 /.next
 /.tool-versions
+/.vscode
 
 /bundles
 /coverage/
 /node_modules/
 /package-lock.json
 /yarn.lock
-/.vscode
 
 # Compiled source #
 ###################
