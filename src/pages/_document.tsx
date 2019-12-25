@@ -10,6 +10,7 @@ import Document, {
 } from 'next/document';
 import createEmotionServer from 'create-emotion-server';
 import createCache from '@emotion/cache';
+import { CacheProvider } from '@emotion/core';
 
 interface InitialProps extends DocumentInitialProps {
   css: string;
@@ -19,8 +20,19 @@ class RktaDocument extends Document<InitialProps> {
   static async getInitialProps(ctx: DocumentContext): Promise<InitialProps> {
     const emotionCache = createCache();
     const { extractCritical } = createEmotionServer(emotionCache);
-    const initialProps = await Document.getInitialProps(ctx);
+
+    await Document.getInitialProps(ctx);
+    const initialProps = await ctx.renderPage({
+      enhanceApp: App => ({ pageProps, ...rest }): JSX.Element => {
+        return (
+          <CacheProvider value={emotionCache}>
+            <App {...rest} pageProps={pageProps} />
+          </CacheProvider>
+        );
+      },
+    });
     const { css } = extractCritical(initialProps.html);
+
     return { ...initialProps, css };
   }
 
