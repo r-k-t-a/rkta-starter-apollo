@@ -1,9 +1,10 @@
-type Query {
+extend type Query {
   errors: [Error]!
 }
 
 type Error {
+  id: ID
   message: String!
   name: String!
-  statusCode: Number
+  statusCode: Int
 }
