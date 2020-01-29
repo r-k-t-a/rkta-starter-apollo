@@ -1,7 +1,6 @@
 import React from 'react';
 import ApolloClient from 'apollo-client';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { getDataFromTree } from '@apollo/react-ssr';
 import get from 'lodash/get';
 import isNode from 'detect-node';
 
@@ -32,7 +31,7 @@ const withApollo = <P extends InjectedApolloProps>(
     );
 
     static async getInitialProps(req: AppContext): Promise<ApolloInitialProps> {
-      const { Component, router, ctx } = req;
+      const { AppTree, ctx } = req;
       const { statusCode = 500 } = { ...ctx.err, ...ctx.res };
 
       let appProps = {};
@@ -42,16 +41,8 @@ const withApollo = <P extends InjectedApolloProps>(
       const apollo = initApollo({ statusCode });
       if (isNode) {
         try {
-          await getDataFromTree(
-            <WrappedApp
-              pageProps={{}}
-              {...req}
-              {...appProps}
-              apolloClient={apollo}
-              Component={Component}
-              router={router}
-            />,
-          );
+          const { getDataFromTree } = await import('@apollo/react-ssr');
+          await getDataFromTree(<AppTree pageProps={appProps} apolloClient={apollo} />);
         } catch (error) {
           // TODO: log me
           if (ctx.res) ctx.res.statusCode = get(error, 'networkError.statusCode', 500);
