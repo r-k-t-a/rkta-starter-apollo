@@ -1,6 +1,8 @@
 module.exports = {
   client: {
-    includes: ['./src/**/*.{graphql,ts,tsx}'],
-    service: 'rkta-starter-apollo',
+    service: {
+      name: 'rkta-starter-apollo',
+      localSchemaFile: './src/@types/generated/server-schema.json',
+    },
   },
 };

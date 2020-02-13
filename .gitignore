@@ -18,6 +18,8 @@
 *.exe
 *.o
 *.so
+src/@types/generated/*.ts
+src/@types/generated/server-schema.json
 
 # Packages #
 ############
