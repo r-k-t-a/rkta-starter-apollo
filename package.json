@@ -13,6 +13,7 @@
     "commit": "git-cz",
     "deploy": "now --prod",
     "predeploy": "npm run check:all",
+    "predev": "scripts/apollo.sh &",
     "dev": "next -p 8000",
     "now:dev": "now dev -p 8000",
     "now-build": "npm run build",

@@ -18,6 +18,8 @@
 *.exe
 *.o
 *.so
+src/@types/apollo-client/*.ts
+src/@types/apollo-client/*.json
 
 # Packages #
 ############

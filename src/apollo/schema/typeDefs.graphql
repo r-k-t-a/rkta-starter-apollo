@@ -2,6 +2,12 @@ extend type Query {
   errors: [Error]!
 }
 
+extend type Mutation {
+  popLocalError: Boolean
+  purgeLocalErrors: Boolean
+  pushLocalError(message: String!, name: String!, statusCode: Int!): Error
+}
+
 type Error {
   id: ID
   message: String!
