@@ -18,8 +18,8 @@
 *.exe
 *.o
 *.so
-src/@types/generated/*.ts
-src/@types/generated/server-schema.json
+src/@types/apollo-client/*.ts
+src/@types/apollo-client/*.json
 
 # Packages #
 ############

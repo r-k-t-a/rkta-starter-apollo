@@ -28,7 +28,7 @@
     },
     "isolatedModules": true
   },
-  "exclude": ["node_modules", ".next", "**/*.spec.ts", "next.config.js", "src/@types/generated/globalTypes.ts"],
+  "exclude": ["node_modules", ".next", "**/*.spec.ts", "next.config.js", "src/@types/apollo-client/globalTypes.ts"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
