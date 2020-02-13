@@ -3,12 +3,9 @@ import Link from 'next/link';
 import styled from '@emotion/styled';
 import { Rocket } from '@rkta/entypo';
 import { Heading, Button, Divider } from '@rkta/ui';
-import { useQuery } from '@apollo/react-hooks';
 
 import localStatePath from 'path/localStatePath';
 import DefaultLayout from 'layouts/Default';
-
-import COUNTRIES from 'apollo/query/countries.graphql';
 
 const Box = styled.section`
   text-align: center;
@@ -23,7 +20,6 @@ const Box = styled.section`
 `;
 
 const IndexPage = (): React.ReactNode => {
-  const { data } = useQuery(COUNTRIES);
   return (
     <DefaultLayout>
       <Box>
@@ -44,7 +40,6 @@ const IndexPage = (): React.ReactNode => {
           </Button>
         </Link>
         <Divider verticalSpace={26} />
-        {data && data.countries.map(({ name }: { name: string }) => <div key={name}>{name}</div>)}
       </Box>
     </DefaultLayout>
   );
