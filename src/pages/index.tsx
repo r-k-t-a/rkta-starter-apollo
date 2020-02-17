@@ -8,7 +8,7 @@ import { useQuery } from '@apollo/react-hooks';
 import localStatePath from 'path/localStatePath';
 import DefaultLayout from 'layouts/Default';
 
-import COUNTRIES from 'apollo/query/countries.graphql';
+import COUNTRIES from '../apollo/query/countries.graphql';
 
 const Box = styled.section`
   text-align: center;
