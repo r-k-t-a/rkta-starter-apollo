@@ -54,7 +54,7 @@ const withApollo = <P extends InjectedApolloProps>(
     }
 
     render(): JSX.Element {
-      return <WrappedApp {...this.props} apolloClient={this.apolloClient} />;
+      return <WrappedApp apolloClient={this.apolloClient} {...this.props} />;
     }
   };
 
