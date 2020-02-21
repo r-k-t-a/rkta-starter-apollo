@@ -24,7 +24,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "paths": {
-      "*": ["src/*"]
+      "*": ["src/*"],
+      "apollo-client/*": ["src/@types/apollo-client/*"]
     },
     "isolatedModules": true
   },

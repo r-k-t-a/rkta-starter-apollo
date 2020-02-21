@@ -6,7 +6,7 @@
       "module-resolver",
       {
         "extensions": [".js", ".ts", ".tsx", ".graphql"],
-        "root": ["./src"]
+        "root": ["./src", "./src/@types"]
       }
     ]
   ]
