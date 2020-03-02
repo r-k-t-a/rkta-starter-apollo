@@ -6,7 +6,7 @@ const merge = require('webpack-merge');
 const withTM = require('next-transpile-modules');
 const common = require('./config/webpack/config.common');
 
-const compose = flow(withBundleAnalyzer, withTM);
+const compose = flow(withBundleAnalyzer, withTM(['@rkta/*']));
 
 module.exports = compose({
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
@@ -23,5 +23,4 @@ module.exports = compose({
   },
   target: process.env.TARGET,
   webpack: config => merge(common, config),
-  transpileModules: ['@rkta/*'],
 });
