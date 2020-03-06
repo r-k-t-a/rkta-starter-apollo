@@ -5,6 +5,9 @@
     [
       "module-resolver",
       {
+        "alias": {
+          "@": "./src/@types/apollo-client/graphql-types.d.ts"
+        },
         "extensions": [".js", ".ts", ".tsx", ".graphql"],
         "root": ["./src", "./src/@types"]
       }
