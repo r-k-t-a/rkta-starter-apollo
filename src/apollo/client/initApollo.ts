@@ -7,8 +7,9 @@ import { setContext } from 'apollo-link-context';
 import { withClientState } from 'apollo-link-state';
 import isNode from 'detect-node';
 
-import clientState from '../schema';
 import makeErrorLink from './makeErrorLink';
+import makeLanguageLink from './makeLanguageLink';
+import { ClientContext, getClientState } from '../schema';
 
 type ClientType = ApolloClient<NormalizedCacheObject>;
 
@@ -28,10 +29,15 @@ const authLink = setContext((_, { headers }) => ({
   },
 }));
 
-const create = (initialState = {}): ClientType => {
-  const cache: InMemoryCache = new InMemoryCache().restore(initialState);
-  const stateLink = withClientState({ ...clientState, cache });
-  const links = [stateLink, makeErrorLink(cache), httpLink];
+const create = (cacheObject: NormalizedCacheObject, clientContext: ClientContext): ClientType => {
+  const cache = new InMemoryCache().restore(cacheObject);
+  const clientState = getClientState(cache, clientContext);
+  const links = [
+    withClientState(clientState),
+    makeErrorLink(cache),
+    makeLanguageLink(cache),
+    httpLink,
+  ];
   if (!isNode) links.unshift(authLink);
 
   return new ApolloClient({
@@ -42,8 +48,11 @@ const create = (initialState = {}): ClientType => {
   });
 };
 
-export default function initApollo(initialState: {}): ClientType {
-  if (isNode) return create(initialState);
-  if (!apolloClient) apolloClient = create(initialState);
+export default function initApollo(
+  cacheObject: NormalizedCacheObject,
+  clientContext: ClientContext,
+): ClientType {
+  if (isNode) return create(cacheObject, clientContext);
+  if (!apolloClient) apolloClient = create(cacheObject, clientContext);
   return apolloClient;
 }

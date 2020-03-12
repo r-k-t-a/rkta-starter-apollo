@@ -1,13 +1,18 @@
 import React from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
-import get from 'lodash/get';
+import { Page404, UnknownError } from 'blocks/Error';
+import query from '../apollo/query/clientContext.graphql';
 
-import { Error404, UnknownError } from '../blocks/Error';
+interface ClientContext {
+  clientContext: { statusCode: number };
+}
 
-const ErrorPage: React.FunctionComponent = () => {
+const ErrorPage = (): JSX.Element => {
   const { cache } = useApolloClient();
-  const statusCode = get(cache, 'data.data.statusCode');
-  return statusCode === 404 ? <Error404 /> : <UnknownError statusCode={statusCode} />;
+  const { statusCode } = cache.readQuery<ClientContext>({ query }, true)?.clientContext || {
+    statusCode: 500,
+  };
+  return statusCode === 404 ? <Page404 /> : <UnknownError statusCode={statusCode} />;
 };
 
 export default ErrorPage;

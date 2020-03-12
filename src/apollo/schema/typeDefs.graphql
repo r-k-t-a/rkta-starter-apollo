@@ -1,4 +1,5 @@
 extend type Query {
+  clientContext: ClientContext
   errors: [Error]!
 }
 
@@ -6,6 +7,12 @@ extend type Mutation {
   popLocalError: Boolean
   purgeLocalErrors: Boolean
   pushLocalError(message: String!, name: String!, statusCode: Int!): Error
+}
+
+type ClientContext {
+  language: String
+  locale: String
+  statusCode: Int
 }
 
 type Error {
