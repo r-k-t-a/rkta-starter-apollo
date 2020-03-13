@@ -4,6 +4,7 @@ import ApolloClient from 'apollo-client';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import get from 'lodash/get';
 import isNode from 'detect-node';
+import cookie from 'cookie';
 
 import App, { AppContext, AppInitialProps } from 'next/app';
 import Head from 'next/head';
@@ -13,7 +14,7 @@ import { ClientContext } from '../schema';
 
 interface ApolloInitialProps extends AppInitialProps {
   apolloState: NormalizedCacheObject;
-  clientContext: ClientContext;
+  clientContext: ClientContext['clientContext'];
 }
 
 export interface InjectedApolloProps extends AppContext, AppInitialProps {
@@ -38,17 +39,21 @@ const withApollo = <P extends InjectedApolloProps>(
       const { AppTree, ctx } = req;
       const { statusCode = 500 } = { ...ctx.err, ...ctx.res };
 
+      const parsedCookie = cookie.parse(ctx.req?.headers.cookie || '');
+
       let appProps = {};
       const { getInitialProps } = WrappedApp;
       if (getInitialProps) appProps = await getInitialProps(req);
 
-      const [language, country] =
+      const [browserLanguage, country] =
         ctx.req?.headers['accept-language']
           ?.split(',')
           .shift()
           ?.split('-') || [];
 
-      const clientContext: ClientContext = { language, country, statusCode };
+      const language = parsedCookie.language || browserLanguage;
+
+      const clientContext: ClientContext['clientContext'] = { language, country, statusCode };
       const apollo = initApollo({}, clientContext);
       const apolloState = apollo.cache.extract();
 

@@ -1,8 +1,0 @@
-query LocalErrors {
-  errors @client {
-    id
-    message
-    name
-    statusCode
-  }
-}

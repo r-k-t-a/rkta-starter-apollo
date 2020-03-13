@@ -2,19 +2,16 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ClientStateConfig } from 'apollo-link-state';
 
 import typeDefs from './typeDefs.graphql';
-import purgeLocalErrors from '../resolve/purgeLocalErrors';
-import pushLocalError from '../resolve/pushLocalError';
-import popLocalError from '../resolve/popLocalError';
+import * as Mutation from './resolvers';
+import { ClientContext } from './types';
 
-export interface ClientContext {
-  language?: string;
-  country?: string;
-  statusCode: number;
-}
+export * from './queries';
+export * from './mutations';
+export * from './types';
 
 export const getClientState = (
   cache: InMemoryCache,
-  { language, country, statusCode }: ClientContext,
+  { language, country, statusCode }: ClientContext['clientContext'],
 ): ClientStateConfig => ({
   cache,
   defaults: {
@@ -27,11 +24,7 @@ export const getClientState = (
     errors: [],
   },
   resolvers: {
-    Mutation: {
-      purgeLocalErrors,
-      pushLocalError,
-      popLocalError,
-    },
+    Mutation,
   },
   typeDefs,
 });

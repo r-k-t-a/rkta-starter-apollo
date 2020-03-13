@@ -4,8 +4,7 @@ import styled from '@emotion/styled';
 import { Addon, Button, List, ListItem, ListTitle, useFx } from '@rkta/ui';
 import { Cross } from '@rkta/entypo';
 
-import { Error } from 'apollo/resolve/pushLocalError';
-import POP_ERROR from 'apollo/mutation/popLocalError.graphql';
+import { Error, POP_LOCAL_ERROR } from 'apollo/schema';
 
 const Box = styled(List)`
   bottom: 16px;
@@ -18,7 +17,7 @@ const Box = styled(List)`
 `;
 
 const ApolloError = ({ message, name }: Error): JSX.Element => {
-  const [popError] = useMutation(POP_ERROR);
+  const [popError] = useMutation(POP_LOCAL_ERROR);
   const [fx, setFx] = useFx('popUp', {
     onFadeDown: popError,
   });
