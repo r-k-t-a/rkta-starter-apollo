@@ -1,18 +1,18 @@
 import gql from 'graphql-tag';
 
-export const popLocalError = gql`
+export const POP_LOCAL_ERROR = gql`
   mutation popLocalError {
     popLocalError @client
   }
 `;
 
-export const purgeLocalErrors = gql`
+export const PURGE_LOCAL_ERRORS = gql`
   mutation PurgeLocalErrors {
     purgeLocalErrors @client
   }
 `;
 
-export const pushLocalError = gql`
+export const PUSH_LOCAL_ERROR = gql`
   mutation pushLocalError($message: String!, $name: String!, $statusCode: Int!) {
     pushLocalError(message: $message, name: $name, statusCode: $statusCode) @client {
       message
@@ -22,7 +22,7 @@ export const pushLocalError = gql`
   }
 `;
 
-export const setLanguage = gql`
+export const SET_LANGUAGE = gql`
   mutation SetLanguage($language: String!) {
     setLanguage(language: $language) @client {
       language

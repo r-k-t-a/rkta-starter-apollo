@@ -1,7 +1,7 @@
 import { setContext } from 'apollo-link-context';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { clientContext, ClientContext } from 'apollo/schema';
+import { CLIENT_CONTEXT, ClientContext } from 'apollo/schema';
 
 const DEFAULT_LANGUAGE = process.env.DEFAULT_LANGUAGE || 'en';
 
@@ -13,7 +13,7 @@ const defaultContext = {
 export default (cache: InMemoryCache): ApolloLink =>
   setContext((_, { headers }) => {
     const { language, country } =
-      cache.readQuery<ClientContext>({ query: clientContext })?.clientContext || defaultContext;
+      cache.readQuery<ClientContext>({ query: CLIENT_CONTEXT })?.clientContext || defaultContext;
     const acceptLanguage = `${language}-${country}`;
     const nextHeaders = { 'Accept-Language': acceptLanguage };
     return { headers: { ...headers, ...nextHeaders } };

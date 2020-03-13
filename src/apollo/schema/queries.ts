@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const clientContext = gql`
+export const CLIENT_CONTEXT = gql`
   query ClientContext {
     clientContext @client {
       language
@@ -10,7 +10,7 @@ export const clientContext = gql`
   }
 `;
 
-export const localErrors = gql`
+export const LOCAL_ERRORS = gql`
   query LocalErrors {
     errors @client {
       id

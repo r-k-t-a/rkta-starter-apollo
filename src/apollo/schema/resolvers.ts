@@ -1,8 +1,9 @@
+import Cookies from 'js-cookie';
 import { ApolloContext, ClientContext, Errors, ErrorMessage } from './types';
-import { clientContext, localErrors } from './queries';
+import { CLIENT_CONTEXT, LOCAL_ERRORS } from './queries';
 
 export const popLocalError = (_: {}, __: {}, { cache }: ApolloContext): {} => {
-  const errorsResult = cache.readQuery<Errors>({ query: localErrors });
+  const errorsResult = cache.readQuery<Errors>({ query: LOCAL_ERRORS });
   const [, ...errors] = errorsResult ? errorsResult.errors : [];
   const data = {
     errors,
@@ -21,7 +22,7 @@ export const pushLocalError = (
   { message, name, statusCode = 0 }: ErrorMessage,
   { cache }: ApolloContext,
 ): {} => {
-  const errorsResult = cache.readQuery<Errors>({ query: localErrors });
+  const errorsResult = cache.readQuery<Errors>({ query: LOCAL_ERRORS });
   const errors = errorsResult ? errorsResult.errors : [];
   const nextError = {
     id: Date.now(),
@@ -46,10 +47,11 @@ export const setLanguage = (
   },
   { cache }: ApolloContext,
 ): {} => {
-  const results = cache.readQuery<ClientContext>({ query: clientContext });
+  const results = cache.readQuery<ClientContext>({ query: CLIENT_CONTEXT });
   const data = {
     clientContext: { ...results?.clientContext, language },
   };
+  Cookies.set('language', language, { expires: 365 });
   cache.writeData({ data });
   return data;
 };

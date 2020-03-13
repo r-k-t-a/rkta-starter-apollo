@@ -2,12 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 import { Rocket } from '@rkta/entypo';
-import { Heading, Button, Divider } from '@rkta/ui';
-import { useQuery } from '@apollo/react-hooks';
+import { Heading, Button, Divider, Popover, List, ListButton } from '@rkta/ui';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 import localStatePath from 'path/localStatePath';
 import DefaultLayout from 'layouts/Default';
+import { CLIENT_CONTEXT, ClientContext, SET_LANGUAGE } from 'apollo/schema';
 
 const COUNTRIES = gql`
   query countries {
@@ -29,8 +30,26 @@ const Box = styled.section`
   }
 `;
 
+const languages = [
+  {
+    token: 'en',
+    name: 'English',
+  },
+  {
+    token: 'fr',
+    name: 'French',
+  },
+  {
+    token: 'ru',
+    name: 'Russian',
+  },
+];
+
 const IndexPage = (): React.ReactNode => {
   const { data } = useQuery(COUNTRIES);
+  const { data: context } = useQuery<ClientContext>(CLIENT_CONTEXT);
+  const [setLanguage] = useMutation(SET_LANGUAGE);
+  const { language } = context?.clientContext || {};
   return (
     <DefaultLayout>
       <Box>
@@ -38,7 +57,22 @@ const IndexPage = (): React.ReactNode => {
         <Heading baseline level={1}>
           R-K-T-A
         </Heading>
-        Poyekhali
+        <Popover>
+          <Button>Poyekhali ({language})</Button>
+          <List rize={1}>
+            {languages.map(({ token, name }) => (
+              <ListButton
+                bgColor={language === token ? 'primary1' : undefined}
+                key={token}
+                onClick={(): void => {
+                  setLanguage({ variables: { language: token } });
+                }}
+              >
+                {name}
+              </ListButton>
+            ))}
+          </List>
+        </Popover>
         <Divider verticalSpace={26} />
         <Link href={localStatePath()}>
           <Button blockLevel hard>
@@ -51,7 +85,9 @@ const IndexPage = (): React.ReactNode => {
           </Button>
         </Link>
         <Divider verticalSpace={26} />
-        {data && data.countries.map(({ name }: { name: string }) => <div key={name}>{name}</div>)}
+        {data?.countries.map(({ name }: { name: string }) => (
+          <div key={name}>{name}</div>
+        ))}
       </Box>
     </DefaultLayout>
   );
