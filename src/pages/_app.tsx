@@ -1,7 +1,7 @@
 import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
-import { Global } from '@emotion/core';
+import { css, Global } from '@emotion/core';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { Provider as UiProvider } from '@rkta/ui';
 
@@ -19,15 +19,15 @@ class NextApp extends App<InjectedApolloProps> {
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           </Head>
           <Global
-            styles={({ color, Text }): {} => ({
-              body: {
-                ...Text.body,
-                ...Text.sans,
-                backgroundColor: color.paper,
-                margin: 0,
-                overscrollBehavior: 'none',
-              },
-            })}
+            styles={({ color, Text }): {} => css`
+              body {
+                ${Text.body}
+                ${Text.sans}
+                background-color: ${color.paper};
+                margin: 0;
+                overscroll-behavior: none;
+              }
+            `}
           />
           <ErrorBoundary>
             <Component {...pageProps} />
