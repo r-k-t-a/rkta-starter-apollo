@@ -1,7 +1,7 @@
 query ClientContext {
   clientContext @client {
     language
-    locale
+    country
     statusCode
   }
 }

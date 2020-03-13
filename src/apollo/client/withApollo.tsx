@@ -42,13 +42,13 @@ const withApollo = <P extends InjectedApolloProps>(
       const { getInitialProps } = WrappedApp;
       if (getInitialProps) appProps = await getInitialProps(req);
 
-      const [language, locale] =
+      const [language, country] =
         ctx.req?.headers['accept-language']
           ?.split(',')
           .shift()
           ?.split('-') || [];
 
-      const clientContext: ClientContext = { language, locale, statusCode };
+      const clientContext: ClientContext = { language, country, statusCode };
       const apollo = initApollo({}, clientContext);
       const apolloState = apollo.cache.extract();
 

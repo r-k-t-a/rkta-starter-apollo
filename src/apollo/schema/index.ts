@@ -8,20 +8,20 @@ import popLocalError from '../resolve/popLocalError';
 
 export interface ClientContext {
   language?: string;
-  locale?: string;
+  country?: string;
   statusCode: number;
 }
 
 export const getClientState = (
   cache: InMemoryCache,
-  { language, locale, statusCode }: ClientContext,
+  { language, country, statusCode }: ClientContext,
 ): ClientStateConfig => ({
   cache,
   defaults: {
     clientContext: {
       __typename: 'ClientContext',
       language,
-      locale,
+      country,
       statusCode,
     },
     errors: [],
