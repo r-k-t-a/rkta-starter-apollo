@@ -29,7 +29,10 @@ const authLink = setContext((_, { headers }) => ({
   },
 }));
 
-const create = (cacheObject: NormalizedCacheObject, clientContext: ClientContext): ClientType => {
+const create = (
+  cacheObject: NormalizedCacheObject,
+  clientContext: ClientContext['clientContext'],
+): ClientType => {
   const cache = new InMemoryCache().restore(cacheObject);
   const clientState = getClientState(cache, clientContext);
   const links = [
@@ -50,7 +53,7 @@ const create = (cacheObject: NormalizedCacheObject, clientContext: ClientContext
 
 export default function initApollo(
   cacheObject: NormalizedCacheObject,
-  clientContext: ClientContext,
+  clientContext: ClientContext['clientContext'],
 ): ClientType {
   if (isNode) return create(cacheObject, clientContext);
   if (!apolloClient) apolloClient = create(cacheObject, clientContext);

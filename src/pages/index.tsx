@@ -4,11 +4,18 @@ import styled from '@emotion/styled';
 import { Rocket } from '@rkta/entypo';
 import { Heading, Button, Divider } from '@rkta/ui';
 import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
 import localStatePath from 'path/localStatePath';
 import DefaultLayout from 'layouts/Default';
 
-import COUNTRIES from 'apollo/query/countries-query.graphql';
+const COUNTRIES = gql`
+  query countries {
+    countries {
+      name
+    }
+  }
+`;
 
 const Box = styled.section`
   text-align: center;

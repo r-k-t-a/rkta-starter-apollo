@@ -1,7 +1,0 @@
-query ClientContext {
-  clientContext @client {
-    language
-    country
-    statusCode
-  }
-}

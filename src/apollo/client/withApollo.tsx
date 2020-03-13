@@ -13,7 +13,7 @@ import { ClientContext } from '../schema';
 
 interface ApolloInitialProps extends AppInitialProps {
   apolloState: NormalizedCacheObject;
-  clientContext: ClientContext;
+  clientContext: ClientContext['clientContext'];
 }
 
 export interface InjectedApolloProps extends AppContext, AppInitialProps {
@@ -48,7 +48,7 @@ const withApollo = <P extends InjectedApolloProps>(
           .shift()
           ?.split('-') || [];
 
-      const clientContext: ClientContext = { language, country, statusCode };
+      const clientContext: ClientContext['clientContext'] = { language, country, statusCode };
       const apollo = initApollo({}, clientContext);
       const apolloState = apollo.cache.extract();
 

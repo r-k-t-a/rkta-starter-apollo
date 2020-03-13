@@ -2,7 +2,8 @@ import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import pushLocalError, { ErrorMessage } from '../resolve/pushLocalError';
+import { ErrorMessage } from '../schema';
+import { pushLocalError } from '../schema/resolvers';
 
 const makeHandler = (cache: InMemoryCache) => ({
   message,

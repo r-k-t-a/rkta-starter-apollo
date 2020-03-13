@@ -3,13 +3,9 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 import Link from 'next/link';
 
-import SELECT_ERRORS from 'apollo/query/localErrors.graphql';
-import PUSH_ERROR from 'apollo/mutation/pushLocalError.graphql';
-import PURGE_ERRORS from 'apollo/mutation/purgeLocalErrors.graphql';
-
 import Button from 'blocks/Button';
 import homePath from 'path/homePath';
-import { Errors } from 'apollo/resolve/pushLocalError';
+import { Errors, localErrors, pushLocalError, purgeLocalErrors } from 'apollo/schema';
 
 const variables = {
   name: 'Custom error',
@@ -17,9 +13,9 @@ const variables = {
 };
 
 const Error = (): React.ReactNode => {
-  const { data } = useQuery<Errors>(SELECT_ERRORS, { ssr: false });
-  const [pushError] = useMutation(PUSH_ERROR);
-  const [purgeErrors] = useMutation(PURGE_ERRORS);
+  const { data } = useQuery<Errors>(localErrors, { ssr: false });
+  const [pushError] = useMutation(pushLocalError);
+  const [purgeErrors] = useMutation(purgeLocalErrors);
   return (
     <>
       &larr;&nbsp;
