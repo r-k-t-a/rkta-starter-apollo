@@ -1,3 +1,4 @@
+/* eslint-disable react/static-property-placement */
 import React from 'react';
 import ApolloClient from 'apollo-client';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
@@ -8,9 +9,11 @@ import App, { AppContext, AppInitialProps } from 'next/app';
 import Head from 'next/head';
 
 import initApollo from './initApollo';
+import { ClientContext } from '../schema';
 
 interface ApolloInitialProps extends AppInitialProps {
   apolloState: NormalizedCacheObject;
+  clientContext: ClientContext;
 }
 
 export interface InjectedApolloProps extends AppContext, AppInitialProps {
@@ -28,6 +31,7 @@ const withApollo = <P extends InjectedApolloProps>(
 
     public apolloClient: ApolloClient<NormalizedCacheObject> = initApollo(
       this.props.apolloState || {},
+      this.props.clientContext || {},
     );
 
     static async getInitialProps(req: AppContext): Promise<ApolloInitialProps> {
@@ -38,19 +42,35 @@ const withApollo = <P extends InjectedApolloProps>(
       const { getInitialProps } = WrappedApp;
       if (getInitialProps) appProps = await getInitialProps(req);
 
-      const apollo = initApollo({ statusCode });
+      const [language, country] =
+        ctx.req?.headers['accept-language']
+          ?.split(',')
+          .shift()
+          ?.split('-') || [];
+
+      const clientContext: ClientContext = { language, country, statusCode };
+      const apollo = initApollo({}, clientContext);
+      const apolloState = apollo.cache.extract();
+
       if (isNode) {
         try {
           const { getDataFromTree } = await import('@apollo/react-ssr');
-          await getDataFromTree(<AppTree pageProps={appProps} apolloClient={apollo} />);
+          await getDataFromTree(
+            <AppTree
+              apolloState={apolloState}
+              clientContext={clientContext}
+              pageProps={appProps}
+              apolloClient={apollo}
+            />,
+          );
         } catch (error) {
           // TODO: log me
           if (ctx.res) ctx.res.statusCode = get(error, 'networkError.statusCode', 500);
         }
         Head.rewind();
       }
-      const apolloState = apollo.cache.extract();
-      return { ...appProps, apolloState, pageProps: {} };
+
+      return { ...appProps, apolloState, clientContext, pageProps: {} };
     }
 
     render(): JSX.Element {
