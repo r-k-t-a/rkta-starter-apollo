@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import Link from 'next/link';
 import styled from '@emotion/styled';
@@ -58,7 +59,7 @@ const IndexPage = (): React.ReactNode => {
           R-K-T-A
         </Heading>
         <Popover>
-          <Button>Poyekhali ({language})</Button>
+          <Button>Poyekhali ({language}) </Button>
           <List rize={1}>
             {languages.map(({ token, name }) => (
               <ListButton
