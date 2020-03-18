@@ -1,5 +1,6 @@
 .env
 .env.serverless
+.now
 /.next
 /.tool-versions
 /.vscode

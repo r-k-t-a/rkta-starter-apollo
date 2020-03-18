@@ -2,6 +2,8 @@
   "alias": "rkta-starter-apollo",
   "build": {
     "env": {
+      "DEFAULT_LANGUAGE": "en",
+      "GRAPHQL_ENDPOINT_URL": "https://rkta-starter-apollo-server.now.sh",
       "TARGET": "serverless"
     }
   },
@@ -26,7 +28,6 @@
       }
     }
   ],
-  "name": "Apollo Starter",
   "scope": "rkta",
   "version": 2
 }

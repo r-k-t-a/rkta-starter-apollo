@@ -1,17 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const path = require('path');
-
 const dotenv = require('dotenv');
 const { EnvironmentPlugin } = require('webpack');
 const pick = require('lodash/pick');
 
-const envFilename = process.env.TARGET === 'serverless' ? '.env.serverless' : '.env';
-const result = dotenv.config({ path: path.join(__dirname, '../../', envFilename) });
-
-if (result.error) {
-  throw result.error;
+if (process.env.TARGET !== 'serverless') {
+  const result = dotenv.config();
+  if (result.error) throw result.error;
 }
 
 const pickKeys = ['GRAPHQL_ENDPOINT_URL'];
