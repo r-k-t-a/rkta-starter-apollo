@@ -96,7 +96,7 @@
     "@emotion/styled": "^10.0.27",
     "@rkta/entypo": "^0.0.94",
     "@rkta/hooks": "0.0.94",
-    "@rkta/ui": "^0.0.94",
+    "@rkta/ui": "^0.0.109",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
     "apollo-link": "^1.2.13",
